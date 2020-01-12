@@ -1,8 +1,7 @@
 package tests;
 
-import classes.HexNum;
-//import utils.Hash;
-import java.math.BigInteger;
+import crypto.HexNum;
+//import crypto.Hash;
 import java.security.NoSuchAlgorithmException;
 
 public class HexNumTests {

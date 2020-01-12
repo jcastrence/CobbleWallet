@@ -3,6 +3,7 @@ package main;
 import classes.*;
 import tests.*;
 import crypto.*;
+import utils.*;
 import java.io.*;
 import java.security.*;
 

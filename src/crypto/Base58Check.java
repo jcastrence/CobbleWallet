@@ -21,14 +21,8 @@ public final class Base58Check {
 	
 	/*---- Static functions ----*/
 	
-	// Adds the checksum and converts to Base58Check. Note that the caller needs to prepend the version byte(s).
-	public static String bytesToBase58(byte[] data) {
-		return rawBytesToBase58(addCheckHash(data));
-	}
-	
-	
 	// Directly converts to Base58Check without adding a checksum.
-	static String rawBytesToBase58(byte[] data) {
+	public static String rawBytesToBase58(byte[] data) {
 		// Convert to base-58 string
 		StringBuilder sb = new StringBuilder();
 		BigInteger num = new BigInteger(1, data);
@@ -44,36 +38,8 @@ public final class Base58Check {
 		return sb.reverse().toString();
 	}
 	
-	
-	// Returns a new byte array by concatenating the given array with its checksum.
-	static byte[] addCheckHash(byte[] data) {
-		try {
-			byte[] hash = Arrays.copyOf(Sha256.getDoubleHash(data).toBytes(), 4);
-			ByteArrayOutputStream buf = new ByteArrayOutputStream();
-			buf.write(data);
-			buf.write(hash);
-			return buf.toByteArray();
-		} catch (IOException e) {
-			throw new AssertionError(e);
-		}
-	}
-	
-	
-	// Converts the given Base58Check string to a byte array, verifies the checksum, and removes the checksum to return the payload.
-	// The caller is responsible for handling the version byte(s).
-	public static byte[] base58ToBytes(String s) {
-		byte[] concat = base58ToRawBytes(s);
-		byte[] data = Arrays.copyOf(concat, concat.length - 4);
-		byte[] hash = Arrays.copyOfRange(concat, concat.length - 4, concat.length);
-		byte[] rehash = Arrays.copyOf(Sha256.getDoubleHash(data).toBytes(), 4);
-		if (!Arrays.equals(rehash, hash))
-			throw new IllegalArgumentException("Checksum mismatch");
-		return data;
-	}
-	
-	
 	// Converts the given Base58Check string to a byte array, without checking or removing the trailing 4-byte checksum.
-	static byte[] base58ToRawBytes(String s) {
+	public static byte[] base58ToRawBytes(String s) {
 		// Parse base-58 string
 		BigInteger num = BigInteger.ZERO;
 		for (int i = 0; i < s.length(); i++) {

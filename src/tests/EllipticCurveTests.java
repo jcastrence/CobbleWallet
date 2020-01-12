@@ -1,7 +1,7 @@
 package tests;
 
-import classes.EllipticCurve;
-import classes.HexNum;
+import crypto.EllipticCurve;
+import crypto.HexNum;
 
 public class EllipticCurveTests {
 
@@ -13,8 +13,8 @@ public class EllipticCurveTests {
 ////        EC.addInfinity("16", "C");
 //        EC.multiply("1A", "10", "14");
         EllipticCurve EC = new EllipticCurve();
-        String privateKey = "9075BE5621317B148E6226BEA827D1427487D433B47D15BAD8176389FFE98617";
-        String publicKey = EC.computePublicKey(privateKey);
+        HexNum privateKey = new HexNum("9075BE5621317B148E6226BEA827D1427487D433B47D15BAD8176389FFE98617");
+        HexNum publicKey = EC.computePublicKey(privateKey);
         System.out.println(privateKey);
         System.out.println(publicKey);
 
